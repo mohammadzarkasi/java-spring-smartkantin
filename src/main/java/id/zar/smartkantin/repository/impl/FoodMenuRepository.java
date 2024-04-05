@@ -49,25 +49,39 @@ public class FoodMenuRepository implements IFoodMenuRepository
 	}
 
 	@Override
-	public FoodMenu update(UUID id, FoodMenu newItem) {
+	public FoodMenu update(FoodMenu oldItem, FoodMenu newItem) {
 		var session = entityManager.unwrap(Session.class);
 		
-		var target = getById(id);
+		oldItem.setUpdatedAt(LocalDateTime.now());
+		oldItem.setNama(newItem.getNama());
+		oldItem.setOwnerId(newItem.getOwnerId());
+		oldItem.setPrice(newItem.getPrice());
 		
-		if(target == null)
-		{
-			return null;
-		}
+		session.persist(oldItem);
 		
-		target.setUpdatedAt(LocalDateTime.now());
-		target.setNama(newItem.getNama());
-		target.setOwnerId(newItem.getOwnerId());
-		target.setPrice(newItem.getPrice());
-		
-		session.persist(target);
-		
-		return target;
+		return oldItem;
 	}
+
+//	@Override
+//	public FoodMenu update(UUID id, FoodMenu newItem) {
+//		var session = entityManager.unwrap(Session.class);
+//		
+//		var target = getById(id);
+//		
+//		if(target == null)
+//		{
+//			return null;
+//		}
+//		
+//		target.setUpdatedAt(LocalDateTime.now());
+//		target.setNama(newItem.getNama());
+//		target.setOwnerId(newItem.getOwnerId());
+//		target.setPrice(newItem.getPrice());
+//		
+//		session.persist(target);
+//		
+//		return target;
+//	}
 	
 
 }

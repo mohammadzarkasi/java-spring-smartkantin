@@ -10,5 +10,6 @@ public interface IFoodMenuService {
 	FoodMenu add(FoodMenu baru);
 	FoodMenu getById(UUID id);
 	
-	FoodMenu update(UUID id, FoodMenu newItem);
+//	FoodMenu update(UUID id, FoodMenu newItem);
+	FoodMenu update(FoodMenu oldItem, FoodMenu newItem);
 }

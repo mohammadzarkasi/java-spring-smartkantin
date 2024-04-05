@@ -42,9 +42,17 @@ public class FoodMenuService implements IFoodMenuService{
 
 	@Transactional
 	@Override
-	public FoodMenu update(UUID id, FoodMenu newItem) {
-		var result = foodMenuRepo.update(id, newItem);
+	public FoodMenu update(FoodMenu oldItem, FoodMenu newItem) {
+		var result = foodMenuRepo.update(oldItem, newItem);
 		return result;
 	}
+
+
+//	@Transactional
+//	@Override
+//	public FoodMenu update(UUID id, FoodMenu newItem) {
+//		var result = foodMenuRepo.update(id, newItem);
+//		return result;
+//	}
 
 }

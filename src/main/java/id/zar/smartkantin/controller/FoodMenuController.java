@@ -3,6 +3,8 @@ package id.zar.smartkantin.controller;
 
 import java.util.UUID;
 
+import javax.management.InstanceNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +40,18 @@ public class FoodMenuController {
 		return result;
 	}
 	
+	@GetMapping("/detail")
+	public FoodMenu detail(@RequestParam("id") UUID id) throws InstanceNotFoundException
+	
+	{
+		var result = foodMenuService.getById(id);
+		if(result == null)
+		{
+			throw new InstanceNotFoundException("ID not found");
+		}
+		return result;
+	}
+	
 	@PostMapping("/add")
 	public FoodMenu add(@RequestBody FormFoodMenu item)
 	{
@@ -52,15 +66,21 @@ public class FoodMenuController {
 	}
 	
 	@PostMapping("/update")
-	public FoodMenu update(@RequestBody FormFoodMenu menu, @RequestParam("id-menu") UUID menuId)
+	public FoodMenu update(@RequestBody FormFoodMenu menu, @RequestParam("id-menu") UUID menuId) throws Exception
 	{
-//		var target = foodMenuService.getById(menuId);
+		var target = foodMenuService.getById(menuId);
+		if(target == null)
+		{
+//			throw new Exception("ID tidak ditemukan");
+			throw new InstanceNotFoundException("ID Not Found");
+		}
 //		var result = new FoodMenu();
 //		result.setId(menuId);
 		
 //		return result;
 		
-		var result = foodMenuService.update(menuId, menu.asNewFoodMenu());
+//		var result = foodMenuService.update(menuId, menu.asNewFoodMenu());
+		var result = foodMenuService.update(target, menu.asNewFoodMenu());
 		
 		return result;
 	}
