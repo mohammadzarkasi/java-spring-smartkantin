@@ -3,10 +3,13 @@ package id.zar.smartkantin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.zar.smartkantin.DbModel.FoodMenu;
+import id.zar.smartkantin.RequestModel.FormFoodMenu;
 import id.zar.smartkantin.service.IFoodMenuService;
 
 @RestController
@@ -32,11 +35,14 @@ public class FoodMenuController {
 		return result;
 	}
 	
-	@GetMapping("/add")
-	public FoodMenu add()
+	@PostMapping("/add")
+	public FoodMenu add(@RequestBody FormFoodMenu item)
 	{
-		var baru = new FoodMenu();
-		baru.setNama("menu baru");
+//		var baru = new FoodMenu();
+//		baru.setNama("menu baru");
+		
+		var baru = item.asNewFoodMenu();
+		
 		foodMenuService.add(baru);
 		return baru;
 	}
