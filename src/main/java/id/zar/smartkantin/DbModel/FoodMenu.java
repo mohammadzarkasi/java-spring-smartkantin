@@ -13,16 +13,29 @@ public class FoodMenu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
+	private UUID ownerId;
 	private String nama;
 	private String gambarMenu;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-	
+	private double price;
 	
 	@Override
 	public String toString() {
-		return "FoodMenu [id=" + id + ", nama=" + nama + ", gambarMenu=" + gambarMenu + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + "]";
+		return "FoodMenu [id=" + id + ", ownerId=" + ownerId + ", nama=" + nama + ", gambarMenu=" + gambarMenu
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", price=" + price + "]";
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public UUID getOwnerId() {
+		return ownerId;
+	}
+	public void setOwnerId(UUID ownerId) {
+		this.ownerId = ownerId;
 	}
 	public UUID getId() {
 		return id;
