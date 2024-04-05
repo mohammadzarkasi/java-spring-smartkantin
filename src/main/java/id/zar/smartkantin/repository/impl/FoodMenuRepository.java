@@ -17,7 +17,11 @@ public class FoodMenuRepository implements IFoodMenuRepository
 	@Override
 	public Iterable<FoodMenu> getAll() {
 		Session session =  entityManager.unwrap(Session.class);
-		var query = session.createQuery("select fm from FoodMenu fm", FoodMenu.class);
+		
+		var query = session.createQuery("select fm from FoodMenu fm order by fm.createdAt desc", FoodMenu.class);
+		query.setFirstResult(0);
+		query.setMaxResults(50);
+		
 		var result = query.getResultList();
 		return result;
 	}
