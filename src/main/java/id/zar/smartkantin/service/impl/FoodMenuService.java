@@ -1,5 +1,7 @@
 package id.zar.smartkantin.service.impl;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,23 @@ public class FoodMenuService implements IFoodMenuService{
 	public FoodMenu add(FoodMenu baru) {
 		foodMenuRepo.add(baru);
 		return baru;
+	}
+
+
+	@Transactional
+	@Override
+	public FoodMenu getById(UUID id) {
+		var result = foodMenuRepo.getById(id);
+		
+		return result;
+	}
+
+
+	@Transactional
+	@Override
+	public FoodMenu update(UUID id, FoodMenu newItem) {
+		var result = foodMenuRepo.update(id, newItem);
+		return result;
 	}
 
 }

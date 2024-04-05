@@ -1,5 +1,8 @@
 package id.zar.smartkantin.repository.impl;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,9 +32,41 @@ public class FoodMenuRepository implements IFoodMenuRepository
 	@Override
 	public FoodMenu add(FoodMenu baru) {
 		var session  = entityManager.unwrap(Session.class);
-//		session.save(baru);
+		baru.setCreatedAt(LocalDateTime.now());
+		
 		session.persist(baru);
+		
 		return baru;
+	}
+
+	@Override
+	public FoodMenu getById(UUID id) {
+		var session = entityManager.unwrap(Session.class);
+		
+		var result = session.find(FoodMenu.class, id);
+		
+		return result;
+	}
+
+	@Override
+	public FoodMenu update(UUID id, FoodMenu newItem) {
+		var session = entityManager.unwrap(Session.class);
+		
+		var target = getById(id);
+		
+		if(target == null)
+		{
+			return null;
+		}
+		
+		target.setUpdatedAt(LocalDateTime.now());
+		target.setNama(newItem.getNama());
+		target.setOwnerId(newItem.getOwnerId());
+		target.setPrice(newItem.getPrice());
+		
+		session.persist(target);
+		
+		return target;
 	}
 	
 

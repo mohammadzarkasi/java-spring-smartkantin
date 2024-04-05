@@ -16,4 +16,6 @@ public interface IFoodMenuRepository
 {
 	Iterable<FoodMenu> getAll();
 	FoodMenu add(FoodMenu baru);
+	FoodMenu getById(UUID id);
+	FoodMenu update(UUID id, FoodMenu oldItem);
 }

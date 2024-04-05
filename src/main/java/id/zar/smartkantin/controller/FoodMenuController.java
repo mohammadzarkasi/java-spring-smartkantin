@@ -1,11 +1,14 @@
 package id.zar.smartkantin.controller;
 
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.zar.smartkantin.DbModel.FoodMenu;
@@ -44,6 +47,21 @@ public class FoodMenuController {
 		var baru = item.asNewFoodMenu();
 		
 		foodMenuService.add(baru);
+	
 		return baru;
+	}
+	
+	@PostMapping("/update")
+	public FoodMenu update(@RequestBody FormFoodMenu menu, @RequestParam("id-menu") UUID menuId)
+	{
+//		var target = foodMenuService.getById(menuId);
+//		var result = new FoodMenu();
+//		result.setId(menuId);
+		
+//		return result;
+		
+		var result = foodMenuService.update(menuId, menu.asNewFoodMenu());
+		
+		return result;
 	}
 }
