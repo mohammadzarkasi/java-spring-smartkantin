@@ -6,6 +6,7 @@ import id.zar.smartkantin.DbModel.FoodMenu;
 
 public interface IFoodMenuService {
 	Iterable<FoodMenu> getAll();
+	Iterable<FoodMenu> getByOwnerId(UUID ownerId);
 	
 	FoodMenu add(FoodMenu baru);
 	FoodMenu getById(UUID id);

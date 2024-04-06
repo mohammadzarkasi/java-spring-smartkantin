@@ -61,6 +61,22 @@ public class FoodMenuRepository implements IFoodMenuRepository
 		
 		return oldItem;
 	}
+	
+	private Session getSession()
+	{
+		return entityManager.unwrap(Session.class);
+	}
+
+	@Override
+	public Iterable<FoodMenu> getByOwnerId(UUID ownerId) {
+		var session = getSession();
+		
+		var query = session.createQuery("from FoodMenu f where f.ownerId = :id", FoodMenu.class);
+		query.setParameter("id", ownerId);
+		
+		var result = query.getResultList();
+		return result;
+	}
 
 //	@Override
 //	public FoodMenu update(UUID id, FoodMenu newItem) {

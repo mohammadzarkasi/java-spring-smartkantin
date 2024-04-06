@@ -1,5 +1,4 @@
-package id.zar.smartkantin.controller;
-
+package id.zar.smartkantin.controller.vendor;
 
 import java.util.UUID;
 
@@ -18,49 +17,25 @@ import id.zar.smartkantin.RequestModel.FormFoodMenu;
 import id.zar.smartkantin.service.IFoodMenuService;
 
 @RestController
-@RequestMapping("/api/food-menu")
-public class FoodMenuController {
-//	private final IFoodMenuRepository foodMenuRepo;
-//	public FoodMenuController(IFoodMenuRepository foodMenuRepo) {
-//		this.foodMenuRepo = foodMenuRepo;
-//	}
-	
+@RequestMapping("/api/vendor/food-menu")
+public class VendorFoodMenuController {
+
 	@Autowired
-	private IFoodMenuService foodMenuService;
+	private IFoodMenuService service;
 	
 	@GetMapping("")
-	public Iterable<FoodMenu> getFoodMenus()
+	public Iterable<FoodMenu> getAll()
 	{
-//		var result = new ArrayList<FoodMenu>();
-//		return result;
-//		var result = foodMenuRepo.findAll();
-//		return result;
-		
-		var result = foodMenuService.getAll();
-		return result;
-	}
-	
-	@GetMapping("/detail")
-	public FoodMenu detail(@RequestParam("id") UUID id) throws InstanceNotFoundException
-	
-	{
-		var result = foodMenuService.getById(id);
-		if(result == null)
-		{
-			throw new InstanceNotFoundException("ID not found");
-		}
+		var result = service.getByOwnerId(new UUID(0, 0));
 		return result;
 	}
 	
 	@PostMapping("/add")
 	public FoodMenu add(@RequestBody FormFoodMenu item)
-	{
-//		var baru = new FoodMenu();
-//		baru.setNama("menu baru");
-		
+	{	
 		var baru = item.asNewFoodMenu();
 		
-		foodMenuService.add(baru);
+		service.add(baru);
 	
 		return baru;
 	}
@@ -68,19 +43,14 @@ public class FoodMenuController {
 	@PostMapping("/update")
 	public FoodMenu update(@RequestBody FormFoodMenu menu, @RequestParam("id-menu") UUID menuId) throws Exception
 	{
-		var target = foodMenuService.getById(menuId);
+		var target = service.getById(menuId);
 		if(target == null)
 		{
-//			throw new Exception("ID tidak ditemukan");
 			throw new InstanceNotFoundException("ID Not Found");
 		}
-//		var result = new FoodMenu();
-//		result.setId(menuId);
-		
-//		return result;
 		
 //		var result = foodMenuService.update(menuId, menu.asNewFoodMenu());
-		var result = foodMenuService.update(target, menu.asNewFoodMenu());
+		var result = service.update(target, menu.asNewFoodMenu());
 		
 		return result;
 	}

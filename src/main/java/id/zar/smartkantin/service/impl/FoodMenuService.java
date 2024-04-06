@@ -48,6 +48,15 @@ public class FoodMenuService implements IFoodMenuService{
 	}
 
 
+	@Transactional
+	@Override
+	public Iterable<FoodMenu> getByOwnerId(UUID ownerId) {
+		System.out.println("find by owner id: " + ownerId);
+		var result = foodMenuRepo.getByOwnerId(ownerId);
+		return result;
+	}
+
+
 //	@Transactional
 //	@Override
 //	public FoodMenu update(UUID id, FoodMenu newItem) {
