@@ -10,4 +10,5 @@ public interface IMyUserService {
 	
 	MyUser getByUsername(String username);
 	MyUser getByEmail(String email);
+	MyUser getByUsernameOrEmail(String usernameOrEmail);
 }

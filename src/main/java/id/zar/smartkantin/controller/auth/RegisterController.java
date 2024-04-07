@@ -1,7 +1,6 @@
 package id.zar.smartkantin.controller.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import id.zar.smartkantin.RequestModel.FormRegister;
 import id.zar.smartkantin.ResponseModel.ResponseMyUser;
 import id.zar.smartkantin.service.IMyUserService;
-import id.zar.smartkantin.service.IRoleService;
 
 @RestController
 @RequestMapping("/api/auth/register")
@@ -19,10 +17,6 @@ public class RegisterController {
 	
 	@Autowired
 	private IMyUserService svc;
-	@Autowired
-	private AuthenticationManager authenticationManager;
-	@Autowired
-	private IRoleService roleSvc;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	

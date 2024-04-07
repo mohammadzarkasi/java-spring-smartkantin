@@ -5,6 +5,20 @@ public class ResponseLogin {
 	private String msg;
 	private String token;
 	
+	public ResponseLogin() 
+	{
+		status = false;
+		msg = "";
+		token = "";
+	}
+	
+	public ResponseLogin(Boolean status, String msg) 
+	{
+		this.status = status;
+		this.msg = msg;
+		token = "";
+	}
+	
 	public String getToken() {
 		return token;
 	}

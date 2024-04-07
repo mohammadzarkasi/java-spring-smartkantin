@@ -25,15 +25,22 @@ public class JWTAuthFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
+		
 		String token = getJwtFromRequest(request);
+		System.out.println("filter jwt auth, token: " + token);
+		
 		if(token != null && jwtGenerator.isTokenValid(token) == true)
 		{
 			var username = jwtGenerator.getUsernameFromJWT(token);
 			
-			var userDetail = customUserSvc.loadUserByUsername(username);
+//			var userDetail = customUserSvc.loadUserByUsername(username);
+			var userDetail = (CustomUser) customUserSvc.loadUserByUsername(username);
 			
-			var authToken = new UsernamePasswordAuthenticationToken(userDetail.getUsername(), null, userDetail.getAuthorities());
+//			var authToken = new UsernamePasswordAuthenticationToken(userDetail.getUsername(), null, userDetail.getAuthorities());
+			var authToken = new CustomUsernamePasswordAuthToken(userDetail.getUsername(), null, userDetail.getAuthorities(), userDetail.getUserId());
+			
 			authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+			
 			SecurityContextHolder.getContext().setAuthentication(authToken);
 		}
 		

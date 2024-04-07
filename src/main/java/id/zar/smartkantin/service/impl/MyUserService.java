@@ -49,6 +49,7 @@ public class MyUserService implements IMyUserService{
 		return newUser;
 	}
 
+	@Transactional
 	@Override
 	public MyUser login(FormLogin form) 
 	{
@@ -81,14 +82,22 @@ public class MyUserService implements IMyUserService{
 //		return null;
 	}
 
+	@Transactional
 	@Override
 	public MyUser getByUsername(String username) {
 		return repo.getByUsername(username);
 	}
 
+	@Transactional
 	@Override
 	public MyUser getByEmail(String email) {
 		return repo.getByEmail(email);
+	}
+
+	@Transactional
+	@Override
+	public MyUser getByUsernameOrEmail(String usernameOrEmail) {
+		return repo.getByUsernameOrEmail(usernameOrEmail);
 	}
 
 }

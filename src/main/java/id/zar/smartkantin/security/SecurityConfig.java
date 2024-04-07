@@ -101,7 +101,9 @@ public class SecurityConfig {
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception
 	{
-		return authenticationConfiguration.getAuthenticationManager();
+		var result = authenticationConfiguration.getAuthenticationManager();
+		System.out.println("auth manager: " + result);
+		return result;
 	}
 	
 	@Bean

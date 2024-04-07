@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.management.InstanceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.zar.smartkantin.DbModel.FoodMenu;
 import id.zar.smartkantin.RequestModel.FormFoodMenu;
+import id.zar.smartkantin.security.CustomUser;
+import id.zar.smartkantin.security.CustomUsernamePasswordAuthToken;
 import id.zar.smartkantin.service.IFoodMenuService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
@@ -26,9 +29,18 @@ public class VendorFoodMenuController {
 	private IFoodMenuService service;
 	
 	@GetMapping("")
-	public Iterable<FoodMenu> getAll()
+	public Iterable<FoodMenu> getAll(Authentication session)
 	{
-		var result = service.getByOwnerId(new UUID(0, 0));
+		UUID userId = new UUID(0,0);
+		if( session instanceof CustomUsernamePasswordAuthToken)
+		{
+			System.out.println("vendor food: session: ------" );
+			userId = ((CustomUsernamePasswordAuthToken) session).getUserId();
+		}
+//		var user = (CustomUser) session.getCredentials();
+//		var result = service.getByOwnerId(new UUID(0, 0));
+		var result = service.getByOwnerId(userId);
+//		var result = service.getByOwnerId(user.getUserId());
 		return result;
 	}
 	

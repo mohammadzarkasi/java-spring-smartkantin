@@ -65,4 +65,21 @@ public class MyUserRepository implements IMyUserRepository{
 		return result.get(0);
 	}
 
+	@Override
+	public MyUser getByUsernameOrEmail(String usernameOrEmail) {
+		var session = getSession();
+		
+		var query = session.createQuery("from MyUser u where u.email = :email or username = :username", MyUser.class);
+		query.setParameter("email", usernameOrEmail);
+		query.setParameter("username", usernameOrEmail);
+		
+		var result = query.getResultList();
+		
+		if(result.isEmpty())
+		{
+			return null;
+		}
+		return result.get(0);
+	}
+
 }
