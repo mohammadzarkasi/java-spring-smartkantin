@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import id.zar.smartkantin.DbModel.MyUser;
-import id.zar.smartkantin.RequestModel.FormRegister;
-import id.zar.smartkantin.ResponseModel.ResponseMyUser;
 import id.zar.smartkantin.repository.IMyUserRepository;
 import jakarta.persistence.EntityManager;
 

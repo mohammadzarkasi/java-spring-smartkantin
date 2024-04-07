@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import id.zar.smartkantin.DbModel.FoodMenu;
 import id.zar.smartkantin.RequestModel.FormFoodMenu;
 import id.zar.smartkantin.service.IFoodMenuService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+@SecurityRequirement(name = "Authorization")
 @RestController
 @RequestMapping("/api/vendor/food-menu")
 public class VendorFoodMenuController {

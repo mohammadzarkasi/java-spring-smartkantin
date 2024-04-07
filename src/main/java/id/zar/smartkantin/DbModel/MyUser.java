@@ -7,8 +7,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
+//@Data
+@Table(name="auth_user")
 public class MyUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -20,14 +24,15 @@ public class MyUser {
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	
-	public UUID getId() {
-		return id;
-	}
+
 	@Override
 	public String toString() {
 		return "MyUser [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
 				+ ", status=" + status + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
+	public UUID getId() {
+	return id;
+}
 	public void setId(UUID id) {
 		this.id = id;
 	}

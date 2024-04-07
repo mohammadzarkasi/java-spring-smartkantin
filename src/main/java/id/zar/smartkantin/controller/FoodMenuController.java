@@ -1,4 +1,4 @@
-package id.zar.smartkantin.controller.customer;
+package id.zar.smartkantin.controller;
 
 
 import java.util.UUID;
@@ -7,18 +7,15 @@ import javax.management.InstanceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.zar.smartkantin.DbModel.FoodMenu;
-import id.zar.smartkantin.RequestModel.FormFoodMenu;
 import id.zar.smartkantin.service.IFoodMenuService;
 
 @RestController
-@RequestMapping("/api/customer/food-menu")
+@RequestMapping("/api/public/food-menu")
 public class FoodMenuController {
 	
 	@Autowired
