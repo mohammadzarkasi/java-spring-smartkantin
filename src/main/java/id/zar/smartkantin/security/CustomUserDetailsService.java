@@ -40,6 +40,13 @@ public class CustomUserDetailsService implements UserDetailsService{
 		}
 		
 		var roles = roleSvc.findRolesOfUser(user);
+		System.out.println("user is: " + user.getUsername());
+		System.out.print("roles: ");
+		for(var role : roles)
+		{
+			System.out.print(role.getName() + ", ");
+		}
+		System.out.println();
 		
 //		return new User(user.getUsername(),user.getPassword(), mapRolesToAuthority(roles));
 		return new CustomUser(user.getId(), user.getUsername(), user.getPassword(), mapRolesToAuthority(roles));

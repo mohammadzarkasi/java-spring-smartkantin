@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.zar.smartkantin.DbModel.FoodMenu;
 import id.zar.smartkantin.RequestModel.FormFoodMenu;
-import id.zar.smartkantin.security.CustomUser;
 import id.zar.smartkantin.security.CustomUsernamePasswordAuthToken;
 import id.zar.smartkantin.service.IFoodMenuService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

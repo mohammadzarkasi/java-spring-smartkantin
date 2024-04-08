@@ -48,7 +48,7 @@ public class LoginController {
 //			username = user.getEmail();
 //		}
 		
-		if((form.getUsername() == null || form.getUsername().isEmpty()) && (form.getEmail() != null || form.getEmail().isEmpty()))
+		if(form.getUsername() == null || form.getUsername().isEmpty())
 		{
 			return new ResponseLogin(false,"username/email tidak boleh kosong");
 		}
@@ -77,18 +77,18 @@ public class LoginController {
 			}
 		}
 		
-		if(authentication == null && form.getEmail() != null && form.getEmail().isEmpty() == false)
-		{
-			try
-			{
-				authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getEmail(), form.getPassword()));
-			}
-			catch(Exception e)
-			{
-				System.out.println("gagal login menggunakan email");
-//				System.out.println(e);
-			}
-		}
+//		if(authentication == null && form.getEmail() != null && form.getEmail().isEmpty() == false)
+//		{
+//			try
+//			{
+//				authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getEmail(), form.getPassword()));
+//			}
+//			catch(Exception e)
+//			{
+//				System.out.println("gagal login menggunakan email");
+////				System.out.println(e);
+//			}
+//		}
 		
 //		SecurityContextHolder.getContext().setAuthentication(authentication);
 		

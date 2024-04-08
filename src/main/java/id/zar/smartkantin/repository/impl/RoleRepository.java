@@ -2,10 +2,12 @@ package id.zar.smartkantin.repository.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import id.zar.smartkantin.DbModel.MyUser;
 import id.zar.smartkantin.DbModel.Role;
@@ -72,6 +74,21 @@ public class RoleRepository implements IRoleRepository{
 		
 		sess.persist(role);
 		return role;
+	}
+
+	@Transactional
+	@Override
+	public List<Role> getAll() {
+		var sess = getSession();
+		var query = sess.createQuery("select r from Role r", Role.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public Role getById(UUID id) {
+		var sess = getSession();
+		var res = sess.find(Role.class, id);
+		return res;
 	}
 
 }

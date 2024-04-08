@@ -4,15 +4,16 @@ import id.zar.smartkantin.DbModel.MyUser;
 
 public class FormRegister extends FormLogin{
 //	private String username;
-//	private String email;
+	private String email;
 //	private String password;
+	
 	private String password2;
 	
 	
 	public MyUser asMyUser()
 	{
 		var user = new MyUser();
-		user.setEmail(this.getEmail());
+//		user.setEmail(this.getEmail());
 		user.setPassword(this.getPassword());
 		user.setUsername(this.getUsername());
 		
@@ -25,12 +26,12 @@ public class FormRegister extends FormLogin{
 //	public void setUsername(String username) {
 //		this.username = username;
 //	}
-//	public String getEmail() {
-//		return email;
-//	}
-//	public void setEmail(String email) {
-//		this.email = email;
-//	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 //	public String getPassword() {
 //		return password;
 //	}

@@ -1,5 +1,7 @@
 package id.zar.smartkantin.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +55,7 @@ public class MyUserService implements IMyUserService{
 	@Override
 	public MyUser login(FormLogin form) 
 	{
-		var user = repo.getByEmail(form.getEmail());
+		var user = repo.getByEmail(form.getUsername());
 		if(user == null)
 		{
 			user = repo.getByUsername(form.getUsername());
@@ -98,6 +100,12 @@ public class MyUserService implements IMyUserService{
 	@Override
 	public MyUser getByUsernameOrEmail(String usernameOrEmail) {
 		return repo.getByUsernameOrEmail(usernameOrEmail);
+	}
+
+	@Transactional
+	@Override
+	public List<MyUser> getAll() {
+		return repo.getAll();
 	}
 
 }

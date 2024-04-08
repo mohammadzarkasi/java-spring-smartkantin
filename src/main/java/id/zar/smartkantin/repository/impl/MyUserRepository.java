@@ -1,6 +1,8 @@
 package id.zar.smartkantin.repository.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +82,20 @@ public class MyUserRepository implements IMyUserRepository{
 			return null;
 		}
 		return result.get(0);
+	}
+
+	@Override
+	public List<MyUser> getAll() {
+		var sess = getSession();
+		var query = sess.createQuery("select u from MyUser u order by u.username asc", MyUser.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public MyUser getById(UUID id) {
+		var sess = getSession();
+		var res = sess.find(MyUser.class, id);
+		return res;
 	}
 
 }
