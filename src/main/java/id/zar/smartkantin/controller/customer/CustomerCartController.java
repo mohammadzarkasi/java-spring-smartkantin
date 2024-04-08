@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.zar.smartkantin.DbModel.CustomerCartItem;
+import id.zar.smartkantin.RequestModel.FormAddCart;
 import id.zar.smartkantin.service.ICustomerCartService;
 import id.zar.smartkantin.tools.SessionTools;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -29,22 +30,27 @@ public class CustomerCartController {
 		return svc.getAllByUserId(userId);
 	}
 	
-	private CustomerCartItem fromForm(CustomerCartItem form)
-	{
-		var newItem = new CustomerCartItem();
-		newItem.setQty(form.getQty());
-		newItem.setFoodMenuId(form.getFoodMenuId());
-		return newItem;
-	}
+//	private CustomerCartItem fromForm(CustomerCartItem form)
+//	{
+//		var newItem = new CustomerCartItem();
+//		newItem.setQty(form.getQty());
+//		newItem.setFoodMenuId(form.getFoodMenuId());
+//		return newItem;
+//	}
 	
 	@PostMapping("/add")
-	public CustomerCartItem add(Authentication sess, @RequestBody CustomerCartItem form)
+	public CustomerCartItem add(Authentication sess, @RequestBody FormAddCart form)
 	{
-		var newItem = fromForm(form);
+//		var newItem = fromForm(form);
 		var userId = SessionTools.getUserIdFromAuth(sess);
-		newItem.setUserId(userId);
+		var c = new CustomerCartItem();
+		c.setUserId(userId);
+		c.setFoodMenuId(form.getFoodId());
+		c.setQty(form.getQty());
 		
-		return svc.add(newItem);
+		return svc.add(c);
 		
 	}
+	
+//	public CustomerCartItem update(Authentication sess, @Re)
 }

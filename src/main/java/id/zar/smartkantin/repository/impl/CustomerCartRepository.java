@@ -125,14 +125,18 @@ public class CustomerCartRepository implements ICustomerCartRepository{
 
 	@Override
 	public List<CustomerCartItem> getByFoodId(UUID userId, UUID foodMenuId) {
+		System.out.println("getByFoodId(UUID userId, UUID foodMenuId) " + userId + ", " + foodMenuId);
 		var s = getSession();
 		
 		var cb = s.getCriteriaBuilder();
 		var cr = cb.createQuery(CustomerCartItem.class);
 		var root = cr.from(CustomerCartItem.class);
 		cr.select(root);
-		cr.where(cb.equal(root.get("foodMenuId"), foodMenuId));
-		cr.where(cb.equal(root.get("userId"), userId));
+		var where1 = cb.equal(root.get("foodMenuId"), foodMenuId);
+		var where2 = cb.equal(root.get("userId"), userId);
+//		cr.where(cb.equal(root.get("foodMenuId"), foodMenuId));
+//		cr.where(cb.equal(root.get("userId"), userId));
+		cr.where(cb.and(where1, where2));
 		
 		var q = s.createQuery(cr);
 		return q.getResultList();
