@@ -1,6 +1,7 @@
 package id.zar.smartkantin.controller.customer;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.zar.smartkantin.DbModel.CustomerCartItem;
@@ -69,5 +71,21 @@ public class CustomerCartController {
 		return svc.updateItem(cart, form.getQty());
 //		var result = svc.updateItem(form.getCartId(), form.getQty());
 //		return result;
+	}
+	
+	@GetMapping("/delete")
+	public String delete(Authentication sess, @RequestParam("id") UUID id) {
+		var cart = svc.getById(id);
+		if(cart == null)
+		{
+			return "NOT FOUND";
+		}
+		var userId = SessionTools.getUserIdFromAuth(sess);
+		if(cart.getUserId().equals(userId) == false)
+		{
+			return "UNAUTHORIZED";
+		}
+		svc.delete(cart);
+		return "OK";
 	}
 }

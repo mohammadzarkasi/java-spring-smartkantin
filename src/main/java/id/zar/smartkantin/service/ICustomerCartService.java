@@ -11,4 +11,5 @@ public interface ICustomerCartService {
 	CustomerCartItem updateItem(UUID id, int qty);
 	CustomerCartItem updateItem(CustomerCartItem item, int qty);
 	CustomerCartItem getById(UUID id);
+	void delete(CustomerCartItem item);
 }

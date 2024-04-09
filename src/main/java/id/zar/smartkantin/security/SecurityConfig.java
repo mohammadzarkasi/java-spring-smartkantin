@@ -54,8 +54,10 @@ public class SecurityConfig {
 					.requestMatchers("/api/auth/**").permitAll()
 					.requestMatchers("/api/public/**").permitAll()
 					
-					.requestMatchers("/api/admin/**").authenticated()
-					.requestMatchers("/api/vendor/**").authenticated()
+//					.requestMatchers("/api/admin/**").authenticated()
+					.requestMatchers("/api/admin/**").hasAnyAuthority("ADMIN")
+//					.requestMatchers("/api/vendor/**").authenticated()
+					.requestMatchers("/api/vendor/**").hasAnyAuthority("VENDOR")
 //					.requestMatchers("/api/customer/**").authenticated()
 					.requestMatchers("/api/customer/**").hasAnyAuthority("USER")
 					

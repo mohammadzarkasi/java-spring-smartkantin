@@ -144,4 +144,11 @@ public class CustomerCartRepository implements ICustomerCartRepository{
 		return q.getResultList();
 	}
 
+	@Override
+	public void deleteCartItem(CustomerCartItem item) {
+		var s = getSession();
+		s.remove(item);
+		
+	}
+
 }

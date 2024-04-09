@@ -58,4 +58,11 @@ public class CustomerCartService implements ICustomerCartService{
 		return repo.updateCartItem(item);
 	}
 
+	@Transactional
+	@Override
+	public void delete(CustomerCartItem item) {
+		repo.deleteCartItem(item);
+		
+	}
+
 }

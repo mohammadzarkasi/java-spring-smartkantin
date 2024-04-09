@@ -12,6 +12,7 @@ public interface ICustomerCartRepository {
 	List<CustomerCartItem> getByFoodId(UUID foodMenuId);
 	List<CustomerCartItem> getByFoodId(UUID userId, UUID foodMenuId);
 	void deleteCartItem(UUID id);
+	void deleteCartItem(CustomerCartItem item);
 	CustomerCartItem updateCartItem(UUID id, int qty);
 	CustomerCartItem updateCartItem(CustomerCartItem item);
 	CustomerCartItem add(CustomerCartItem item);
