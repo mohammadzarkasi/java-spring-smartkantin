@@ -18,8 +18,17 @@ public class CustomerOrderDetail {
 	private UUID orderId;
 	private UUID foodMenuId;
 	private int qty;
+	private double subTotal;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+
+	
+	public double getSubTotal() {
+		return subTotal;
+	}
+	public void setSubTotal(double subTotal) {
+		this.subTotal = subTotal;
+	}
 	
 	
 	public UUID getId() {

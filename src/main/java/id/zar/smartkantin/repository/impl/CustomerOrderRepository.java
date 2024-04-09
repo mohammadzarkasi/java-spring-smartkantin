@@ -41,10 +41,20 @@ public class CustomerOrderRepository implements ICustomerOrderRepository{
 	@Override
 	public List<CustomerOrder> getByUserId(UUID userId) {
 		var sess = getSession();
-		var q = sess.createQuery("from CustomerOrder o where o.userId = :userId", CustomerOrder.class);
-		q.setParameter("urderId", userId);
-		var r = q.getResultList();
-		return r;
+		var cb = sess.getCriteriaBuilder();
+		var cr = cb.createQuery(CustomerOrder.class);
+		var root = cr.from(CustomerOrder.class);
+		cr.select(root);
+		cr.where(cb.equal(root.get("userId"), userId));
+		
+		var q = sess.createQuery(cr);
+		
+		return q.getResultList();
+		
+//		var q = sess.createQuery("from CustomerOrder o where o.userId = :userId", CustomerOrder.class);
+//		q.setParameter("urderId", userId);
+//		var r = q.getResultList();
+//		return r;
 	}
 
 	@Override
@@ -68,13 +78,15 @@ public class CustomerOrderRepository implements ICustomerOrderRepository{
 	}
 
 	@Override
-	public void addDetail(UUID orderId, CustomerOrderDetail d) {
+	public CustomerOrderDetail addDetail(UUID orderId, CustomerOrderDetail d) {
 		var sess = getSession();
 		
 		d.setCreatedAt(LocalDateTime.now());
 		d.setOrderId(orderId);
 		
 		sess.persist(d);
+		
+		return d;
 	}
 
 	@Override
@@ -127,6 +139,16 @@ public class CustomerOrderRepository implements ICustomerOrderRepository{
 		sess.persist(newOrder);
 		
 		return newOrder;
+	}
+
+	@Override
+	public CustomerOrder update(CustomerOrder item) {
+		var s = getSession();
+		item.setUpdatedAt(LocalDateTime.now());
+		
+		s.merge(item);
+		
+		return item;
 	}
 
 }
