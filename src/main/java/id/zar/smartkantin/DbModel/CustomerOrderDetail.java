@@ -18,9 +18,12 @@ public class CustomerOrderDetail {
 	private UUID orderId;
 	private UUID foodMenuId;
 	private int qty;
+	private double priceSnapshot;
 	private double subTotal;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	private String vendorNameSnapshot;
+	private String foodMenuNameSnapshot;
 
 	
 	public double getSubTotal() {
@@ -31,6 +34,24 @@ public class CustomerOrderDetail {
 	}
 	
 	
+	public double getPriceSnapshot() {
+		return priceSnapshot;
+	}
+	public void setPriceSnapshot(double priceSnapshot) {
+		this.priceSnapshot = priceSnapshot;
+	}
+	public String getVendorNameSnapshot() {
+		return vendorNameSnapshot;
+	}
+	public void setVendorNameSnapshot(String vendorNameSnapshot) {
+		this.vendorNameSnapshot = vendorNameSnapshot;
+	}
+	public String getFoodMenuNameSnapshot() {
+		return foodMenuNameSnapshot;
+	}
+	public void setFoodMenuNameSnapshot(String foodMenuNameSnapshot) {
+		this.foodMenuNameSnapshot = foodMenuNameSnapshot;
+	}
 	public UUID getId() {
 		return id;
 	}

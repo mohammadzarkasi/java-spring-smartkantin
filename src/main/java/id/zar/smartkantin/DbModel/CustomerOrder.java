@@ -36,6 +36,11 @@ public class CustomerOrder {
 		return details;
 	}
 	
+	public void setDetails(List<CustomerOrderDetail> d)
+	{
+		details = d;
+	}
+	
 	public UUID getId() {
 		return id;
 	}

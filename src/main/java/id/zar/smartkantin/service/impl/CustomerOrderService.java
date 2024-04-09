@@ -78,6 +78,9 @@ public class CustomerOrderService implements ICustomerOrderService{
 			od.setFoodMenuId(cart.getFoodMenuId());
 			od.setOrderId(nco.getId());
 			od.setQty(cart.getQty());
+			od.setPriceSnapshot(item.getPrice());
+			od.setFoodMenuNameSnapshot(item.getNama());
+//			od.setVendorNameSnapshot(item.);
 			od.setSubTotal(cart.getQty() * item.getPrice());
 			
 			var nod = orderRepo.addDetail(nco.getId(), od);
