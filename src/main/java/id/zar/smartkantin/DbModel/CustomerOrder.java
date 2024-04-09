@@ -19,9 +19,12 @@ public class CustomerOrder {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	private UUID userId;
+	private UUID paymentMethodId;
 	private double totalPrice;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	private LocalDateTime paymentExpiredAt;
+	private LocalDateTime paymentDoneAt;
 	
 	@Transient
 	private List<CustomerOrderDetail> details = new ArrayList<CustomerOrderDetail>();
@@ -41,6 +44,50 @@ public class CustomerOrder {
 		details = d;
 	}
 	
+	public boolean isExpired()
+	{
+		var skrg = LocalDateTime.now();
+		
+		if(skrg.compareTo(this.paymentExpiredAt) > 0)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isPaid()
+	{
+		if(this.paymentDoneAt == null)
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	public UUID getPaymentMethodId() {
+		return paymentMethodId;
+	}
+
+	public void setPaymentMethodId(UUID paymentMethodId) {
+		this.paymentMethodId = paymentMethodId;
+	}
+
+	public LocalDateTime getPaymentExpiredAt() {
+		return paymentExpiredAt;
+	}
+
+	public void setPaymentExpiredAt(LocalDateTime paymentExpiredAt) {
+		this.paymentExpiredAt = paymentExpiredAt;
+	}
+
+	public LocalDateTime getPaymentDoneAt() {
+		return paymentDoneAt;
+	}
+
+	public void setPaymentDoneAt(LocalDateTime paymentDoneAt) {
+		this.paymentDoneAt = paymentDoneAt;
+	}
+
 	public UUID getId() {
 		return id;
 	}

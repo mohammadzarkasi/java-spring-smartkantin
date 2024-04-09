@@ -65,6 +65,7 @@ public class CustomerOrderService implements ICustomerOrderService{
 		
 		var co = new CustomerOrder();
 		co.setUserId(userId);
+		co.setPaymentExpiredAt(LocalDateTime.now().plusMinutes(30));
 		
 		var nco = orderRepo.add(co);
 		double price = 0;
