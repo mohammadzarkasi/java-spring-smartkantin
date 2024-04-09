@@ -94,13 +94,15 @@ public class CustomerCartRepository implements ICustomerCartRepository{
 	}
 
 	@Override
-	public void updateCartItem(UUID id, int qty) {
+	public CustomerCartItem updateCartItem(UUID id, int qty) {
 		var s = getSession();
 		var item = getById(id);
 		item.setQty(qty);
 		item.setUpdatedAt(LocalDateTime.now());
 		
 		s.merge(item);
+		return item;
+		
 //		var q = s.createQuery("update CustomerCartItem c set c.qty = :qty where c.id = :id", CustomerCartItem.class);
 //		q.setParameter("id", id);
 //		q.setParameter("qty", qty);
@@ -108,11 +110,11 @@ public class CustomerCartRepository implements ICustomerCartRepository{
 	}
 
 	@Override
-	public void updateCartItem(CustomerCartItem item) {
+	public CustomerCartItem updateCartItem(CustomerCartItem item) {
 		var s = getSession();
 		item.setUpdatedAt(LocalDateTime.now());
 		s.merge(item);
-		
+		return item;
 	}
 
 	@Override

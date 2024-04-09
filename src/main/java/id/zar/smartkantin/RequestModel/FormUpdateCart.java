@@ -2,14 +2,14 @@ package id.zar.smartkantin.RequestModel;
 
 import java.util.UUID;
 
-public class FormAddCart {
-	private UUID foodId;
+public class FormUpdateCart {
+	private UUID cartId;
 	private int qty;
-	public UUID getFoodId() {
-		return foodId;
+	public UUID getCartId() {
+		return cartId;
 	}
-	public void setFoodId(UUID foodId) {
-		this.foodId = foodId;
+	public void setCartId(UUID cartId) {
+		this.cartId = cartId;
 	}
 	public int getQty() {
 		return qty;
@@ -17,4 +17,5 @@ public class FormAddCart {
 	public void setQty(int qty) {
 		this.qty = Math.max(1, qty);
 	}
+	
 }

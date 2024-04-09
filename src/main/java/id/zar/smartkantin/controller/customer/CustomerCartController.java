@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.zar.smartkantin.DbModel.CustomerCartItem;
 import id.zar.smartkantin.RequestModel.FormAddCart;
+import id.zar.smartkantin.RequestModel.FormUpdateCart;
 import id.zar.smartkantin.service.ICustomerCartService;
 import id.zar.smartkantin.tools.SessionTools;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -52,5 +53,21 @@ public class CustomerCartController {
 		
 	}
 	
-//	public CustomerCartItem update(Authentication sess, @Re)
+	@PostMapping("/update")
+	public CustomerCartItem update(Authentication sess, @RequestBody FormUpdateCart form) throws Exception
+	{
+		var userId = SessionTools.getUserIdFromAuth(sess);
+		var cart = svc.getById(form.getCartId());
+		if(cart == null)
+		{
+			throw new Exception("Data tidak ditemukan");
+		}
+		if(cart.getUserId().equals(userId) == false)
+		{
+			throw new Exception("Tidak berhak");
+		}
+		return svc.updateItem(cart, form.getQty());
+//		var result = svc.updateItem(form.getCartId(), form.getQty());
+//		return result;
+	}
 }

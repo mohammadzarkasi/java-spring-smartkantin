@@ -39,4 +39,23 @@ public class CustomerCartService implements ICustomerCartService{
 		return repo.getByUserId(userId);
 	}
 
+	@Transactional
+	@Override
+	public CustomerCartItem updateItem(UUID id, int qty) {
+		return repo.updateCartItem(id, qty);
+	}
+
+	@Transactional
+	@Override
+	public CustomerCartItem getById(UUID id) {
+		return repo.getById(id);
+	}
+
+	@Transactional
+	@Override
+	public CustomerCartItem updateItem(CustomerCartItem item, int qty) {
+		item.setQty(qty);
+		return repo.updateCartItem(item);
+	}
+
 }
