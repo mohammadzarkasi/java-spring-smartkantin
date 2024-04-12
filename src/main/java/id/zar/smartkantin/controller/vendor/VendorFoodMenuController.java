@@ -17,6 +17,7 @@ import id.zar.smartkantin.DbModel.FoodMenu;
 import id.zar.smartkantin.RequestModel.FormFoodMenu;
 import id.zar.smartkantin.security.CustomUsernamePasswordAuthToken;
 import id.zar.smartkantin.service.IFoodMenuService;
+import id.zar.smartkantin.service.IVendorService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @SecurityRequirement(name = "Authorization")
@@ -25,30 +26,58 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 public class VendorFoodMenuController {
 
 	@Autowired
-	private IFoodMenuService service;
+	private IFoodMenuService foodService;
+	@Autowired
+	private IVendorService vendorSvc;
 	
 	@GetMapping("")
-	public Iterable<FoodMenu> getAll(Authentication session)
+	public Iterable<FoodMenu> getAll(Authentication session) throws Exception
 	{
 		UUID userId = new UUID(0,0);
-		if( session instanceof CustomUsernamePasswordAuthToken)
+		if(session instanceof CustomUsernamePasswordAuthToken)
 		{
 			System.out.println("vendor food: session: ------" );
 			userId = ((CustomUsernamePasswordAuthToken) session).getUserId();
 		}
+		
+		var vendorMe = vendorSvc.getById(userId);
+		
+		if(vendorMe == null)
+		{
+			throw new Exception("Data Vendor Anda tidak tersedia");
+		}
+		
+		var foods = foodService.getByVendorId(vendorMe.getId());
+		
+		return foods;
 //		var user = (CustomUser) session.getCredentials();
 //		var result = service.getByOwnerId(new UUID(0, 0));
-		var result = service.getByOwnerId(userId);
+//		var result = service.getByOwnerId(userId);
 //		var result = service.getByOwnerId(user.getUserId());
-		return result;
+//		return result;
 	}
 	
 	@PostMapping("/add")
-	public FoodMenu add(@RequestBody FormFoodMenu item)
+	public FoodMenu add(@RequestBody FormFoodMenu item, Authentication sess) throws Exception
 	{	
-		var baru = item.asNewFoodMenu();
+		UUID userId = new UUID(0,0);
+		if(sess instanceof CustomUsernamePasswordAuthToken)
+		{
+			System.out.println("vendor food: session: ------" );
+			userId = ((CustomUsernamePasswordAuthToken) sess).getUserId();
+		}
 		
-		service.add(baru);
+		var vendorMe = vendorSvc.getById(userId);
+		
+		if(vendorMe == null)
+		{
+			throw new Exception("Data Vendor Anda tidak tersedia");
+		}
+		
+		var baru = item.asNewFoodMenu();
+		baru.setVendorId(vendorMe.getUserId());
+		
+		foodService.add(baru);
 	
 		return baru;
 	}
@@ -56,14 +85,14 @@ public class VendorFoodMenuController {
 	@PostMapping("/update")
 	public FoodMenu update(@RequestBody FormFoodMenu menu, @RequestParam("id-menu") UUID menuId) throws Exception
 	{
-		var target = service.getById(menuId);
+		var target = foodService.getById(menuId);
 		if(target == null)
 		{
 			throw new InstanceNotFoundException("ID Not Found");
 		}
 		
 //		var result = foodMenuService.update(menuId, menu.asNewFoodMenu());
-		var result = service.update(target, menu.asNewFoodMenu());
+		var result = foodService.update(target, menu.asNewFoodMenu());
 		
 		return result;
 	}

@@ -47,14 +47,20 @@ public class FoodMenuService implements IFoodMenuService{
 		return result;
 	}
 
-
 	@Transactional
 	@Override
-	public Iterable<FoodMenu> getByOwnerId(UUID ownerId) {
-		System.out.println("find by owner id: " + ownerId);
-		var result = foodMenuRepo.getByOwnerId(ownerId);
-		return result;
+	public Iterable<FoodMenu> getByVendorId(UUID vendorId) {
+		return foodMenuRepo.getByOwnerId(vendorId);
 	}
+
+
+//	@Transactional
+//	@Override
+//	public Iterable<FoodMenu> getByOwnerId(UUID ownerId) {
+//		System.out.println("find by owner id: " + ownerId);
+//		var result = foodMenuRepo.getByOwnerId(ownerId);
+//		return result;
+//	}
 
 
 //	@Transactional

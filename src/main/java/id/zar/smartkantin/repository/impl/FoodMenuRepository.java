@@ -54,7 +54,8 @@ public class FoodMenuRepository implements IFoodMenuRepository
 		
 		oldItem.setUpdatedAt(LocalDateTime.now());
 		oldItem.setNama(newItem.getNama());
-		oldItem.setOwnerId(newItem.getOwnerId());
+//		oldItem.setOwnerId(newItem.getOwnerId());
+		oldItem.setVendorId(newItem.getVendorId());
 		oldItem.setPrice(newItem.getPrice());
 		
 		session.persist(oldItem);
