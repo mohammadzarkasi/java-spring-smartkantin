@@ -16,6 +16,7 @@ public class FormRegister extends FormLogin{
 //		user.setEmail(this.getEmail());
 		user.setPassword(this.getPassword());
 		user.setUsername(this.getUsername());
+		user.setEmail(this.getEmail());
 		
 		return user;
 	}
