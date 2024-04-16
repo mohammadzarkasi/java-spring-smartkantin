@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping("/api/vendor/profile")
 @SecurityRequirement(name = "Authorization")
-public class VendorController {
+public class VendorProfileController {
 	@Autowired
 	private IVendorService vendorSvc;
 	
