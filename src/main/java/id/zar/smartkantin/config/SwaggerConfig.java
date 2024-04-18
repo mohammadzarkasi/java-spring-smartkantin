@@ -1,4 +1,4 @@
-package id.zar.smartkantin.security;
+package id.zar.smartkantin.config;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
