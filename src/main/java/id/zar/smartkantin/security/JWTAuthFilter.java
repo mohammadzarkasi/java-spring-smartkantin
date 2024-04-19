@@ -3,7 +3,6 @@ package id.zar.smartkantin.security;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,7 +26,9 @@ public class JWTAuthFilter extends OncePerRequestFilter{
 		
 		
 		String token = getJwtFromRequest(request);
-		System.out.println("filter jwt auth, token: " + token);
+		System.out.println("filter jwt auth:");
+		System.out.println("path  : " + request.getRequestURI());
+		System.out.println("token : " + token);
 		
 		if(token != null && jwtGenerator.isTokenValid(token) == true)
 		{

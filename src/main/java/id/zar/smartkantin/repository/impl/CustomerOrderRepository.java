@@ -42,12 +42,12 @@ public class CustomerOrderRepository implements ICustomerOrderRepository{
 	public List<CustomerOrder> getByUserId(UUID userId) {
 		var sess = getSession();
 		var cb = sess.getCriteriaBuilder();
-		var cr = cb.createQuery(CustomerOrder.class);
-		var root = cr.from(CustomerOrder.class);
-		cr.select(root);
-		cr.where(cb.equal(root.get("userId"), userId));
+		var cq = cb.createQuery(CustomerOrder.class);
+		var root = cq.from(CustomerOrder.class);
+		cq.select(root);
+		cq.where(cb.equal(root.get("userId"), userId));
 		
-		var q = sess.createQuery(cr);
+		var q = sess.createQuery(cq);
 		
 		return q.getResultList();
 		

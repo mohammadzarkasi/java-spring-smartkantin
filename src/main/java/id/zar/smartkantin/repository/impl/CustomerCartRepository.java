@@ -37,11 +37,11 @@ public class CustomerCartRepository implements ICustomerCartRepository{
 //		var c = s.createQuery(CustomerCartItem.class);
 		
 		var cb = s.getCriteriaBuilder();
-		var cr = cb.createQuery(CustomerCartItem.class);
-		var root = cr.from(CustomerCartItem.class);
-		cr.select(root);
+		var cq = cb.createQuery(CustomerCartItem.class);
+		var root = cq.from(CustomerCartItem.class);
+		cq.select(root);
 		
-		var q = s.createQuery(cr);
+		var q = s.createQuery(cq);
 		return q.getResultList();
 	}
 
@@ -53,12 +53,12 @@ public class CustomerCartRepository implements ICustomerCartRepository{
 //		return q.getResultList();
 		
 		var cb = s.getCriteriaBuilder();
-		var cr = cb.createQuery(CustomerCartItem.class);
-		var root = cr.from(CustomerCartItem.class);
-		cr.select(root);
-		cr.where(cb.equal(root.get("userId"), userId));
+		var cq = cb.createQuery(CustomerCartItem.class);
+		var root = cq.from(CustomerCartItem.class);
+		cq.select(root);
+		cq.where(cb.equal(root.get("userId"), userId));
 		
-		var q = s.createQuery(cr);
+		var q = s.createQuery(cq);
 		return q.getResultList();
 	}
 
@@ -67,12 +67,12 @@ public class CustomerCartRepository implements ICustomerCartRepository{
 		var s = getSession();
 		
 		var cb = s.getCriteriaBuilder();
-		var cr = cb.createQuery(CustomerCartItem.class);
-		var root = cr.from(CustomerCartItem.class);
-		cr.select(root);
-		cr.where(cb.equal(root.get("foodMenuId"), foodMenuId));
+		var cq = cb.createQuery(CustomerCartItem.class);
+		var root = cq.from(CustomerCartItem.class);
+		cq.select(root);
+		cq.where(cb.equal(root.get("foodMenuId"), foodMenuId));
 		
-		var q = s.createQuery(cr);
+		var q = s.createQuery(cq);
 		return q.getResultList();
 		
 //		var q = s.createQuery("from CustomerCartItem c where c.foodMenuId = :foodMenuId", CustomerCartItem.class);
@@ -131,16 +131,16 @@ public class CustomerCartRepository implements ICustomerCartRepository{
 		var s = getSession();
 		
 		var cb = s.getCriteriaBuilder();
-		var cr = cb.createQuery(CustomerCartItem.class);
-		var root = cr.from(CustomerCartItem.class);
-		cr.select(root);
+		var cq = cb.createQuery(CustomerCartItem.class);
+		var root = cq.from(CustomerCartItem.class);
+		cq.select(root);
 		var where1 = cb.equal(root.get("foodMenuId"), foodMenuId);
 		var where2 = cb.equal(root.get("userId"), userId);
 //		cr.where(cb.equal(root.get("foodMenuId"), foodMenuId));
 //		cr.where(cb.equal(root.get("userId"), userId));
-		cr.where(cb.and(where1, where2));
+		cq.where(cb.and(where1, where2));
 		
-		var q = s.createQuery(cr);
+		var q = s.createQuery(cq);
 		return q.getResultList();
 	}
 

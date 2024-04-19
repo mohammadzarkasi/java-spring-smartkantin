@@ -71,9 +71,21 @@ public class MyUserRepository implements IMyUserRepository{
 	public MyUser getByUsernameOrEmail(String usernameOrEmail) {
 		var session = getSession();
 		
-		var query = session.createQuery("from MyUser u where u.email = :email or username = :username", MyUser.class);
-		query.setParameter("email", usernameOrEmail);
-		query.setParameter("username", usernameOrEmail);
+		var cb = session.getCriteriaBuilder();
+		var cq = cb.createQuery(MyUser.class);
+		var root = cq.from(MyUser.class);
+		cq.select(root);
+		
+		var where1 = cb.equal(root.get("email"), usernameOrEmail);
+		var where2 = cb.equal(root.get("username"), usernameOrEmail);
+		
+		cq.where(cb.or(where1, where2));
+		
+		var query = session.createQuery(cq);
+		
+//		var query = session.createQuery("from MyUser u where u.email = :email or username = :username", MyUser.class);
+//		query.setParameter("email", usernameOrEmail);
+//		query.setParameter("username", usernameOrEmail);
 		
 		var result = query.getResultList();
 		
